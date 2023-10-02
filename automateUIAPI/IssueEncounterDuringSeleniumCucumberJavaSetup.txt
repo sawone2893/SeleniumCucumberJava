@@ -1,0 +1,2 @@
+Issue: Unable make field private final java.util.Comparator java.util.TreeMap.comparator' in Cucumber.
+Solution:You might be using older version of cucumber provided "info.cukes".Then upgrade to new version dependecies provided by "io.cucumber" to get this error resolved.
