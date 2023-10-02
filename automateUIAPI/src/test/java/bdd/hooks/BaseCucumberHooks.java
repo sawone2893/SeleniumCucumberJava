@@ -17,11 +17,7 @@ public class BaseCucumberHooks{
 	@After
 	public void afterScenario(Scenario scenario) {
 		System.out.println("Scenario Ended: "+scenario.getName());
-		boolean status=scenario.isFailed();
-		if(status) {
-			byte []snap=BaseClass.snapAsBytes();
-			scenario.attach(snap, "image/png","Error Snap");
-		}
+		
 		BaseClass.closeBrowser();
 	}
 	
@@ -31,7 +27,10 @@ public class BaseCucumberHooks{
 
 	@After
 	public void afterSteps(Scenario scenario) {
-
+		if(scenario.isFailed()) {
+			byte []snap=BaseClass.snapAsBytes();
+			scenario.attach(snap, "image/png",scenario.getName());
+		}
 	}
 
 }

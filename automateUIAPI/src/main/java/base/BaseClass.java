@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
+
 import base.actionInterface.IAction;
 import base.driverFactory.DriverFactory;
 
@@ -22,12 +23,12 @@ public class BaseClass {
 		globalDriver.closeBrowser();
 	}
 	
-	public static void click(String locatorType,String locatorValue) {
-		globalDriver.clickElement(locatorType,locatorValue);
+	public static void click(String locatorValue) {
+		globalDriver.clickElement(locatorValue);
 	}
 	
-	public static void type(String locatorType,String locatorValue,String textToEnter) {
-		globalDriver.enterTextOnElement(locatorType, locatorValue,textToEnter);
+	public static void type(String locatorValue,String textToEnter) {
+		globalDriver.enterTextOnElement(locatorValue,textToEnter);
 	}
 	
 	public static byte[] snapAsBytes() {
@@ -36,6 +37,13 @@ public class BaseClass {
 	
 	public static void waitForPageToBeLoad(int timeInSeconds) {
 		globalDriver.waitForPageLoad(timeInSeconds);
+	}
+	
+	public static boolean isElementDisplayedOrEnabledOrSelected(String locatorValue,String state) {
+		return globalDriver.isElementDisplayedOrEnabledOrSelected(locatorValue,state);
+	}
+	public static void scrollToElement(String locatorValue) {
+		globalDriver.scrollToElement(locatorValue);
 	}
 	
 	public static String getAnyProperty(String propFileName,String configPropName) {
@@ -73,6 +81,18 @@ public class BaseClass {
 			xpath = newPath;
 		}
 		return newPath;
+	}
+	
+	public static void waitUntill(String locatorValue,String conditionName) {
+		globalDriver.waitUntill(locatorValue,conditionName);
+	}
+	
+	public static String getElementAttribute(String locatorValue,String attributeName) {
+		return globalDriver.getAttributeValue(locatorValue,attributeName);
+	}
+	
+	public static void waitForElement(int timeInSeconds) {
+		globalDriver.waitForElement(timeInSeconds);
 	}
 	
 }

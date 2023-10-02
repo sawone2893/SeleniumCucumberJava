@@ -1,6 +1,7 @@
 package base.modal;
 
 import java.io.File;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -84,10 +85,10 @@ public class SeleniumActions implements IAction {
 	}
 
 	@Override
-	public void clickElement(String locatorType,String locatorValue) {
+	public void clickElement(String locatorValue) {
 		try {
-			element=findElement(locatorType,locatorValue);
-			waitUntill(element,"clickable");
+			element=findElement(locatorValue);
+			waitUntill(locatorValue,"CLICKABLE");
 			element.click();
 		}catch(Exception e) {
 			Assert.assertTrue(false, "WebElement["+locatorValue+"] is not clickable.");
@@ -97,9 +98,9 @@ public class SeleniumActions implements IAction {
 	}
 
 	@Override
-	public void enterTextOnElement(String locatorType,String locatorValue,String textToEnter) {
-		element=findElement(locatorType,locatorValue);
-		if(isElementEnabled(element)) {
+	public void enterTextOnElement(String locatorValue,String textToEnter) {
+		element=findElement(locatorValue);
+		if(isElementDisplayedOrEnabledOrSelected(locatorValue,"ENABLED")) {
 			element.sendKeys(textToEnter);
 		}else {
 			Assert.assertTrue(false, "WebElement["+locatorValue+"] is not enabled.");
@@ -108,25 +109,26 @@ public class SeleniumActions implements IAction {
 	}
 
 	@Override
-	public void waitUntill(final WebElement element,final String conditionName) {
+	public void waitUntill(final String locatorValue,final String conditionName) {
 		try {
+			element=findElement(locatorValue);
 			Function<WebDriver, Boolean> function = new Function<WebDriver, Boolean>() {
 				public Boolean apply(WebDriver driver) {
 					WebDriverWait wait = new WebDriverWait(driver, maxWaitTime);
-					switch(conditionName.toLowerCase()) {
-					case "clickable":{
+					switch(conditionName.toUpperCase()) {
+					case "CLICKABLE":{
 						wait.until(ExpectedConditions.elementToBeClickable(element));
 						break;
 					}
-					case "Invisible":{
+					case "INVISIBLE":{
 						wait.until(ExpectedConditions.invisibilityOf(element));
 						break;
 					}	
-					case "visible":{
+					case "VISIBLE":{
 						wait.until(ExpectedConditions.visibilityOf(element));
 						break;
 					}	
-					case "selected":{
+					case "SELECTED":{
 						wait.until(ExpectedConditions.elementToBeSelected(element));
 						break;
 					}
@@ -184,25 +186,35 @@ public class SeleniumActions implements IAction {
 	}
 
 	@Override
-	public boolean isElementDisplayed(WebElement element) {
-		return element.isDisplayed();
+	public boolean isElementDisplayedOrEnabledOrSelected(String locatorValue,String stateType) {
+		element=findElement(locatorValue);
+		boolean status = false;
+		switch(stateType.toUpperCase()) {
+		case"DISPLAYED":{
+			status=element.isDisplayed();
+			break;
+		}case"ENABLED":{
+			status=element.isEnabled();
+			break;
+		}case"SELECTED":{
+			status =element.isSelected();
+			break;
+		}default:
+			Assert.assertTrue(false, "Unsupported state Type: " + stateType);
+		}
+		return status;
 	}
 
 	@Override
-	public boolean isElementEnabled(WebElement element) {
-		return element.isEnabled();
-		
-	}
-
-	@Override
-	public boolean isElementSelected(WebElement element) {
-		return element.isSelected();
-		
-	}
-
-	@Override
-	public String getAttributeValue(WebElement element,String attributeName) {
-		return element.getAttribute(attributeName);
+	public String getAttributeValue(String locatorValue,String attributeName) {
+		String attributeValue = null;
+		if(isElementPresent(locatorValue)) {
+			element=findElement(locatorValue);
+			attributeValue=element.getAttribute(attributeName);
+		}else {
+			Assert.assertTrue(false, "Unable to find attribute value as Web Element is not present in the DOM");
+		}
+		return attributeValue;
 	}
 
 	@Override
@@ -238,29 +250,57 @@ public class SeleniumActions implements IAction {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void scrollToElement(String locatorValue) {
+		if(isElementPresent(locatorValue)) {
+			element=findElement(locatorValue);
+			((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);",element);
+			
+		}else {
+			Assert.assertTrue(false, "Unable to perform scroll: Web Element is not present");
+		}
+		
+	}
+	
+	public boolean isElementPresent(String locatorValue) {
+		boolean status = false;
+		if (findElements(locatorValue).size() > 0) {
+			if (isElementDisplayedOrEnabledOrSelected(locatorValue, "DISPLAYED")) {
+				status = true;
+			} else {
+				status = false;
+			}
+		} else {
+			status = false;
+		}
+		return status;
+
+	}
 
 	@Override
-	public WebElement findElement(String locatorType, String locatorValue) {
+	public WebElement findElement( String locatorValue) {
 		WebElement element = null;
 		try {
-			switch (locatorType.toUpperCase()) {
-			case ("ID"):
-				element = driver.findElement(By.id(locatorValue));
-			case ("LINK"):
-				element = driver.findElement(By.linkText(locatorValue));
-			case ("XPATH"):
-				element = driver.findElement(By.xpath(locatorValue));
-			case ("NAME"):
-				element = driver.findElement(By.name(locatorValue));
-			case ("CLASS"):
-				element = driver.findElement(By.className(locatorValue));
-			default:
-				Assert.assertTrue(false, "Unsupported Locator Type: " + locatorType);
-			}
+			element = driver.findElement(By.xpath(locatorValue));
 		} catch (NoSuchElementException e) {
 			e.printStackTrace();
 			Assert.assertTrue(false,"NoSuchElementException");
-			
+		} catch (WebDriverException e) {
+			e.printStackTrace();
+			Assert.assertTrue(false,"WebDriverException");
+		}
+		return element;
+
+	}
+	
+	@Override
+	public List<WebElement> findElements(String locatorValue) {
+		List<WebElement> element = null;
+		try {
+			element = driver.findElements(By.xpath(locatorValue));
+		} catch (NoSuchElementException e) {
+			e.printStackTrace();
+			Assert.assertTrue(false,"NoSuchElementException");
 		} catch (WebDriverException e) {
 			e.printStackTrace();
 			Assert.assertTrue(false,"WebDriverException");

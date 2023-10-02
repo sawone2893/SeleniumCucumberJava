@@ -6,7 +6,6 @@ public class TestSteps {
 	private String action;
 	private String locator;
 	private String value;
-	private String locatorType;
 	
 	private TestSteps(){}
 	public static TestSteps getInstance() {
@@ -38,14 +37,6 @@ public class TestSteps {
 
 	public void setValue(String value) {
 		this.value = value;
-	}
-
-	public String getLocatorType() {
-		return locatorType;
-	}
-
-	public void setLocatorType(String locatorType) {
-		this.locatorType = locatorType;
 	}
 
 }

@@ -19,21 +19,42 @@ public class TestExecutor{
 
 	public void executeAction(TestSteps steps) {
 		switch (steps.getAction()) {
-		case "Click":
-			BaseClass.click(steps.getLocatorType(), steps.getLocator());
-		case "EnterValue":
-			BaseClass.type(steps.getLocatorType(), steps.getLocator(),steps.getValue());
+		case "Click":{
+			BaseClass.click(steps.getLocator());
 			break;
-		case "WaitForPageToBeLoad":
+		}case "EnterValue":{
+			BaseClass.type( steps.getLocator(),steps.getValue());
+			break;
+		}case "WaitForElement":{
+			BaseClass.waitForElement(Integer.parseInt(steps.getValue()));
+			break;
+		}case "WaitForPageToBeLoad":{
 			BaseClass.waitForPageToBeLoad(Integer.parseInt(steps.getValue()));
+			break;	
+		}case "WaitUntill":{
+			BaseClass.waitUntill(steps.getLocator(),steps.getValue());
+			break;	
+		}case "ScrollToElement":{
+			BaseClass.scrollToElement(steps.getLocator());
 			break;
-		default:
+		}case "VerifyAttributeValue":{
+			String attriValue[]=steps.getValue().split("|");
+			String status=BaseClass.getElementAttribute(steps.getLocator(),attriValue[0]);
+			Assert.assertEquals(status, attriValue[1],"Expected: "+attriValue[1]+" Actual: "+status);
+			break;
+		}case "VerifyVisibility":{
+			boolean status=BaseClass.isElementDisplayedOrEnabledOrSelected(steps.getLocator(), "DISPLAYED");
+			Assert.assertEquals(status,Boolean.parseBoolean(steps.getValue()));
+			break;
+		}default:
 			Assert.assertTrue(false, steps.getAction() + "is not defined.Please define your action in the TestExecutor Class.");
 		}
 	}
 	
 	public String getLocator(String locatorIdentifier, String parameters){
-		return BaseClass.replacePath(locatorIdentifier,parameters);
+		String locatorValue=BaseClass.replacePath(locatorIdentifier,parameters);
+		System.out.println("LOCATOR_VALUE: "+locatorValue);
+		return locatorValue;
 	}
 
 }

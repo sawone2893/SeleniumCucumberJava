@@ -8,12 +8,7 @@ import io.cucumber.testng.CucumberOptions;
 		dryRun=!true,
 		monochrome=true,
 		glue={"bdd.stepDefinitions","bdd.hooks"},
-		plugin= {
-				"pretty",
-				"html:reports/reports.html",
-				"json:reports/report.json",
-				"junit:reports/report.xml"
-				},
+		plugin = {"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"},
 		tags="@smoke"
 		)
 public class Runner extends AbstractTestNGCucumberTests{
