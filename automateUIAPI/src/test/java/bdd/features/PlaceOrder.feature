@@ -1,13 +1,14 @@
-Feature: Testing Application
-
-    Scenario Outline: Verify user is able to place order
+Feature: User Place Order
+	
+	@sanity
+  Scenario Outline: Verify user is able to place order
     Given I "WaitForPageToBeLoad" "10" seconds
     When I "Click" on "TagWithText" with values "a~Login or register"
     And I "EnterValue" "<loginname>" for "TagWithAttribute" with values "input~name~loginname"
     And I "EnterValue" "<password>" for "TagWithAttribute" with values "input~name~password"
     And I "Click" on "ButtonWithText" with values "Login"
     Then I "VerifyVisibility" is "true" for "TagWithText" with values "div~Welcome back Shabbir"
-    When I "Click" on "TagWithText" with values "a~Apparel & accessories"
+    When I "Click" on "CategoryMenu" with values "Apparel & accessories"
     And I "Click" on "TagWithText" with values "a~Shoes"
     And I "Click" on "TagWithText" with values "a~New Ladies High Wedge Heel Toe Thong Diamante Flip Flop Sandals"
     And I "Click" on "TagWithText" with values "input~6 UK"

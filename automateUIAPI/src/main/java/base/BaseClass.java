@@ -95,4 +95,12 @@ public class BaseClass {
 		globalDriver.waitForElement(timeInSeconds);
 	}
 	
+	public static void jsClick(String locatorValue) {
+		globalDriver.jsClick(locatorValue);
+	}
+	
+	public static String getElementText(String locatorValue) {
+		return globalDriver.getText(locatorValue);
+	}
+	
 }

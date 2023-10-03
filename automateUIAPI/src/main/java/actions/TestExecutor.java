@@ -31,8 +31,8 @@ public class TestExecutor{
 		}case "WaitForPageToBeLoad":{
 			BaseClass.waitForPageToBeLoad(Integer.parseInt(steps.getValue()));
 			break;	
-		}case "WaitUntill":{
-			BaseClass.waitUntill(steps.getLocator(),steps.getValue());
+		}case "JSClick":{
+			BaseClass.jsClick(steps.getLocator());
 			break;	
 		}case "ScrollToElement":{
 			BaseClass.scrollToElement(steps.getLocator());
@@ -41,6 +41,10 @@ public class TestExecutor{
 			String attriValue[]=steps.getValue().split("|");
 			String status=BaseClass.getElementAttribute(steps.getLocator(),attriValue[0]);
 			Assert.assertEquals(status, attriValue[1],"Expected: "+attriValue[1]+" Actual: "+status);
+			break;
+		}case "VerifyTextValue":{
+			String textValue=BaseClass.getElementText(steps.getLocator());
+			Assert.assertEquals(textValue, steps.getValue(),"Expected: "+steps.getValue()+" Actual: "+textValue);
 			break;
 		}case "VerifyVisibility":{
 			boolean status=BaseClass.isElementDisplayedOrEnabledOrSelected(steps.getLocator(), "DISPLAYED");

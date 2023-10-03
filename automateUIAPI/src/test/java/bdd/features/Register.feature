@@ -7,7 +7,6 @@ Feature: User Registration
     And I "Click" on "RadioOrCheckboxWithLabel" with values "Register Account"
     And I "ScrollToElement" on "TagWithAttribute" with values "button~title~Continue"
     And I "Click" on "TagWithAttribute" with values "button~title~Continue"
-    Then I "WaitUntill" "VISIBLE" for "TagWithAttribute" with values "input~name~firstname"
     And I "EnterValue" "<firstname>" for "TagWithAttribute" with values "input~name~firstname"
     And I "EnterValue" "<lastname>" for "TagWithAttribute" with values "input~name~lastname"
     And I "EnterValue" "<email>" for "TagWithAttribute" with values "input~name~email"

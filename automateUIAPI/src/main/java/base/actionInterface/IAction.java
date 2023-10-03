@@ -16,9 +16,10 @@ public interface IAction {
 	public boolean isElementDisplayedOrEnabledOrSelected(String locatorValue,String state);
 	public boolean isElementPresent(String locatorValue);
 	public String getAttributeValue(String locatorValue, String attributeName);
+	public String getText(String locatorValue);
 	public String getURL();
 	public void takeScreenshot(String screenshotName);
-	public void jsClick(WebElement element);
+	public void jsClick(String locatorValue);
 	public WebElement findElement(String locatorValue);
 	public List<WebElement> findElements(String locatorValue);
 	public void waitUntill(final String locatorValue,final String conditionName);

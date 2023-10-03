@@ -30,11 +30,13 @@ public class SeleniumActions implements IAction {
 	private WebDriver driver=null;
 	private static WebElement element=null;
 	private int maxWaitTime=120;
+	JavascriptExecutor jExecutor=null;
 	
 
 	@Override
 	public void initialize(String browserName, boolean isHeadless) {
 		launchBrowser(browserName);
+		jExecutor=(JavascriptExecutor) driver;
 		driver.manage().window().maximize();
 		driver.manage().timeouts().pageLoadTimeout(maxWaitTime, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
@@ -86,24 +88,24 @@ public class SeleniumActions implements IAction {
 
 	@Override
 	public void clickElement(String locatorValue) {
-		try {
+		waitUntill(locatorValue,"VISIBLE");
+		if(isElementPresent(locatorValue) && isElementDisplayedOrEnabledOrSelected(locatorValue,"ENABLED")) {
 			element=findElement(locatorValue);
 			waitUntill(locatorValue,"CLICKABLE");
 			element.click();
-		}catch(Exception e) {
-			Assert.assertTrue(false, "WebElement["+locatorValue+"] is not clickable.");
+		}else {
+			Assert.assertTrue(false, "WebElement ["+locatorValue+"] is not clickable.");
 		}
-		
-		
 	}
 
 	@Override
 	public void enterTextOnElement(String locatorValue,String textToEnter) {
-		element=findElement(locatorValue);
-		if(isElementDisplayedOrEnabledOrSelected(locatorValue,"ENABLED")) {
+		waitUntill(locatorValue,"VISIBLE");
+		if(isElementPresent(locatorValue) && isElementDisplayedOrEnabledOrSelected(locatorValue,"ENABLED")) {
+			element=findElement(locatorValue);
 			element.sendKeys(textToEnter);
 		}else {
-			Assert.assertTrue(false, "WebElement["+locatorValue+"] is not enabled.");
+			Assert.assertTrue(false, "WebElement ["+locatorValue+"] is not enabled.");
 		}
 		
 	}
@@ -165,8 +167,8 @@ public class SeleniumActions implements IAction {
 			public Boolean apply(WebDriver driver) {
 				System.
 				out.println("Current Window State  : "
-						+ String.valueOf(((JavascriptExecutor) driver).executeScript("return document.readyState")));
-				return String.valueOf(((JavascriptExecutor) driver).executeScript("return document.readyState"))
+						+ String.valueOf(jExecutor.executeScript("return document.readyState")));
+				return String.valueOf(jExecutor.executeScript("return document.readyState"))
 						.equals("complete");
 			}
 		};
@@ -208,6 +210,7 @@ public class SeleniumActions implements IAction {
 	@Override
 	public String getAttributeValue(String locatorValue,String attributeName) {
 		String attributeValue = null;
+		waitUntill(locatorValue,"VISIBLE");
 		if(isElementPresent(locatorValue)) {
 			element=findElement(locatorValue);
 			attributeValue=element.getAttribute(attributeName);
@@ -246,15 +249,33 @@ public class SeleniumActions implements IAction {
 	}
 
 	@Override
-	public void jsClick(WebElement element) {
-		// TODO Auto-generated method stub
+	public void jsClick(String locatorValue) {
+		if(isElementPresent(locatorValue)) {
+			element=findElement(locatorValue);
+			jExecutor.executeScript("arguments[0].click();", element);
+		}else {
+			Assert.assertTrue(false, "Unable to perform JSClick: Web Element is not present");
+		}
 		
+		
+	}
+	
+	public String getText(String locatorValue) {
+		String textValue=null;
+		waitUntill(locatorValue,"VISIBLE");
+		if(isElementPresent(locatorValue)) {
+			element=findElement(locatorValue);
+			textValue=element.getText().trim();
+		}else {
+			Assert.assertTrue(false, "Unable to get Text: Web Element is not present");
+		}
+		return textValue;
 	}
 	
 	public void scrollToElement(String locatorValue) {
 		if(isElementPresent(locatorValue)) {
 			element=findElement(locatorValue);
-			((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);",element);
+			jExecutor.executeScript("arguments[0].scrollIntoView(true);",element);
 			
 		}else {
 			Assert.assertTrue(false, "Unable to perform scroll: Web Element is not present");
@@ -308,5 +329,5 @@ public class SeleniumActions implements IAction {
 		return element;
 
 	}
-
+	
 }
