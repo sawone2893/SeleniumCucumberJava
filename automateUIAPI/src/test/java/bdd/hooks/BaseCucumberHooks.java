@@ -17,7 +17,6 @@ public class BaseCucumberHooks{
 	@After
 	public void afterScenario(Scenario scenario) {
 		System.out.println("Scenario Ended: "+scenario.getName());
-		
 		BaseClass.closeBrowser();
 	}
 	
