@@ -17,25 +17,47 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
+		<selenium.version>3.14.0</selenium.version>
+		<commonio.version>2.6</commonio.version>
+		<testng.version>7.1.0</testng.version>
+		<slf4japi.version>2.0.8</slf4japi.version>
+		<slf4simple.version>2.0.8</slf4simple.version>
+		<cucumberjava.version>7.13.0</cucumberjava.version>
+		<cucumbercore.version>7.13.0</cucumbercore.version>
+		<cucumbertestng.version>7.13.0</cucumbertestng.version>
+		<gherkin.version>26.2.0</gherkin.version>
+		<extentreportscucumber7adapter.version>1.14.0</extentreportscucumber7adapter.version>
+		<log4jcore.version>2.16.0</log4jcore.version>
+		<log4jweb.version>2.16.0</log4jweb.version>
+		<poi.version>3.9</poi.version>
+		<poiooxml.version>3.9</poiooxml.version>
+		<xmlbeans.version>2.6.0</xmlbeans.version>
+		<restassured.version>5.3.1</restassured.version>
+		<hamcrestall.version>1.3</hamcrestall.version>
+		<jsonpath.version>5.3.1</jsonpath.version>
+		<jsonschemavalidator.version>5.3.1</jsonschemavalidator.version>
+		<json.version>20230227</json.version>
+		<scribejavaapis.version>8.3.2</scribejavaapis.version>
+		<javafaker.version>1.0.2</javafaker.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>3.14.0</version>
+			<version>${selenium.version}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.6</version>
+			<version>${commonio.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>7.1.0</version>
+			<version>${testng.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- Below dependencies are added just resolve Error: Failed to load
@@ -44,12 +66,12 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>2.0.8</version>
+			<version>${slf4japi.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
-			<version>2.0.8</version>
+			<version>${slf4simple.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- End Here -->
@@ -58,26 +80,26 @@
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-java</artifactId>
-			<version>7.13.0</version>
+			<version>${cucumberjava.version}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-core -->
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-core</artifactId>
-			<version>7.13.0</version>
+			<version>${cucumbercore.version}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-testng</artifactId>
-			<version>7.13.0</version>
+			<version>${cucumbertestng.version}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/io.cucumber/gherkin -->
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>gherkin</artifactId>
-			<version>26.2.0</version>
+			<version>${gherkin.version}</version>
 		</dependency>
 		<!-- Cucumber Ends Here -->
 		<!-- Cucumber Extent Reports Jars Start -->
@@ -86,7 +108,7 @@
 		<dependency>
 			<groupId>tech.grasshopper</groupId>
 			<artifactId>extentreports-cucumber7-adapter</artifactId>
-			<version>1.14.0</version>
+			<version>${extentreportscucumber7adapter.version}</version>
 		</dependency>
 		<!-- Cucumber Extent Reports Jars End -->
 		<!-- Logging Framework Jars Start -->
@@ -94,36 +116,87 @@
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
-			<version>2.16.0</version>
+			<version>${log4jcore.version}</version>
 		</dependency>
 		<!--
 		https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-web -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-web</artifactId>
-			<version>2.16.0</version>
+			<version>${log4jweb.version}</version>
 		</dependency>
 		<!-- Logging Framework Jars End -->
 		<!-- Excel Handling Jars Start -->
-			<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
-			<version>3.9</version>
+			<version>${poi.version}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
-			<version>3.9</version>
+			<version>${poiooxml.version}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.xmlbeans/xmlbeans -->
 		<dependency>
 			<groupId>org.apache.xmlbeans</groupId>
 			<artifactId>xmlbeans</artifactId>
-			<version>2.6.0</version>
+			<version>${xmlbeans.version}</version>
 		</dependency>
 		<!-- Excel Handling Jars End -->
+		<!-- API Handling Jars Start -->
+		<!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>${restassured.version}</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all -->
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+			<version>${hamcrestall.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/io.rest-assured/json-path -->
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>json-path</artifactId>
+			<version>${jsonpath.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!--
+		https://mvnrepository.com/artifact/io.rest-assured/json-schema-validator -->
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>json-schema-validator</artifactId>
+			<version>${jsonschemavalidator.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>${json.version}</version>
+		</dependency>
+		<!--
+		https://mvnrepository.com/artifact/com.github.scribejava/scribejava-apis -->
+		<dependency>
+			<groupId>com.github.scribejava</groupId>
+			<artifactId>scribejava-apis</artifactId>
+			<version>${scribejavaapis.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
+		<dependency>
+			<groupId>com.github.javafaker</groupId>
+			<artifactId>javafaker</artifactId>
+			<version>${javafaker.version}</version>
+		</dependency>
+
+		<!-- API Handling Jars End -->
 	</dependencies>
 
 	<build>

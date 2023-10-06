@@ -3,7 +3,7 @@ package tdd;
 import org.testng.annotations.Test;
 
 import base.BaseTestNG;
-import bdd.stepDefinitions.Common;
+import ui.bdd.stepDefinitions.Common;
 
 public class TC1 extends BaseTestNG{
 	

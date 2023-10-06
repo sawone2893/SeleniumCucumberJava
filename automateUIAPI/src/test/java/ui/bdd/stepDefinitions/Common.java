@@ -1,4 +1,4 @@
-package bdd.stepDefinitions;
+package ui.bdd.stepDefinitions;
 
 import actions.TestExecutor;
 import actions.TestSteps;

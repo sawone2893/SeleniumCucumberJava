@@ -6,15 +6,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-import base.actionInterface.IAction;
+import base.actionInterface.IActionUI;
 import base.driverFactory.DriverFactory;
 
 public class BaseClass {
 	
-	public static IAction globalDriver=null;
+	public static IActionUI globalDriver=null;
 
 	public static void appStart() {
-		globalDriver=DriverFactory.driverInstance(BaseClass.getAnyProperty("config","DRIVERNAME"));
+		globalDriver=DriverFactory.uiDriverInstance(BaseClass.getAnyProperty("config","DRIVERNAME"));
 		globalDriver.initialize(BaseClass.getAnyProperty("config","BROWSERNAME"),false);
 		globalDriver.openURL(BaseClass.getAnyProperty("config","APPURL"));
 	}

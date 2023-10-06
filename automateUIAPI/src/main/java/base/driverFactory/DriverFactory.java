@@ -1,24 +1,24 @@
 package base.driverFactory;
 
-import base.actionInterface.IAction;
+import base.actionInterface.IActionUI;
 import base.modal.SeleniumActions;
 
 public class DriverFactory {
 	
-	static IAction action=null;
+	static IActionUI actionUI=null;
 	
-	public static IAction driverInstance(String driverName) {
-		switch (driverName.toLowerCase()) {
+	public static IActionUI uiDriverInstance(String uiDriverName) {
+		switch (uiDriverName.toLowerCase()) {
 		case "selenium":{
-			System.out.println("Create Instance for "+driverName);
-			action = new SeleniumActions();
+			System.out.println("Create Instance for "+uiDriverName);
+			actionUI = new SeleniumActions();
 			break;
-		}	
+		}
 		default:{
-			System.out.println("Unsupported Driver Name: " + driverName);
+			System.out.println("Unsupported UI Driver Name: " + uiDriverName);
 		}	
 		}
-		return action;
-	}
+		return actionUI;
+	}	
 
 }

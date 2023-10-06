@@ -23,9 +23,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import com.google.common.base.Function;
-import base.actionInterface.IAction;
+import base.actionInterface.IActionUI;
 
-public class SeleniumActions implements IAction {
+public class SeleniumActions implements IActionUI {
 	
 	private WebDriver driver=null;
 	private static WebElement element=null;

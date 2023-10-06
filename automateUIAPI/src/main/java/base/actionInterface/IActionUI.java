@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.openqa.selenium.WebElement;
 
-public interface IAction {
+public interface IActionUI {
 	
 	public void initialize(String browserChannelName, boolean isHeadless);
 	public void closeBrowser();
