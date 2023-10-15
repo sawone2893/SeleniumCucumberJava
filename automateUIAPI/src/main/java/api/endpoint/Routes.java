@@ -2,12 +2,12 @@ package api.endpoint;
 
 public class Routes {
 	
-	public static String base_url="https://petstore.swagger.io/v2";
+	public static String BASE_URL="https://petstore.swagger.io/v2";
 	
 	//User Module"
-	public static String user_post_url=base_url+"/user";
-	public static String user_get_url=base_url+"/user/{username}";
-	public static String user_update_url=base_url+"/user/{username}";
-	public static String user_delete_url=base_url+"/user/{username}";
+	public static final String POST_USER=BASE_URL+"/user";
+	public static final String GET_USER=BASE_URL+"/user/{username}";
+	public static final String UPDATE_USER=BASE_URL+"/user/{username}";
+	public static final String DELTE_USER=BASE_URL+"/user/{username}";
 
 }
