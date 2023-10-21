@@ -2,6 +2,7 @@ package tdd;
 
 import org.testng.annotations.Test;
 
+import api.services.UserService;
 import base.BaseTestNG;
 import ui.bdd.stepDefinitions.Common;
 
@@ -11,7 +12,9 @@ public class TC1 extends BaseTestNG{
 	
 	@Test
 	public void test() {
-		common.i("WaitForPageToBeLoad", "5");
+		UserService.getUsers();
+		UserService.printResponse();
+		UserService.validateUserStatusCode(200);
 	}
 
 }

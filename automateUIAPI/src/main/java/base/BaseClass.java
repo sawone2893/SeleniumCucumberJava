@@ -1,70 +1,48 @@
 package base;
 
-import java.io.FileInputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Properties;
-
 import base.actionInterface.IActionUI;
 import base.driverFactory.DriverFactory;
+import utililties.PropertyManager;
 
 public class BaseClass {
 	
-	public static IActionUI globalDriver=null;
-
+	public static IActionUI globalUIDriver=null;
+	
 	public static void appStart() {
-		globalDriver=DriverFactory.uiDriverInstance(BaseClass.getAnyProperty("config","DRIVERNAME"));
-		globalDriver.initialize(BaseClass.getAnyProperty("config","BROWSERNAME"),false);
-		globalDriver.openURL(BaseClass.getAnyProperty("config","APPURL"));
+		globalUIDriver=DriverFactory.uiDriverInstance(PropertyManager.getAnyProperty("config","UIDRIVERNAME"));
+		globalUIDriver.initialize(PropertyManager.getAnyProperty("config","BROWSERNAME"),false);
+		globalUIDriver.openURL(PropertyManager.getAnyProperty("config","APPURL"));
 	}
 	
 	public static void closeBrowser() {
-		globalDriver.closeBrowser();
+		globalUIDriver.closeBrowser();
 	}
 	
 	public static void click(String locatorValue) {
-		globalDriver.clickElement(locatorValue);
+		globalUIDriver.clickElement(locatorValue);
 	}
 	
 	public static void type(String locatorValue,String textToEnter) {
-		globalDriver.enterTextOnElement(locatorValue,textToEnter);
+		globalUIDriver.enterTextOnElement(locatorValue,textToEnter);
 	}
 	
 	public static byte[] snapAsBytes() {
-		return globalDriver.takeScreenshotAsBytes();
+		return globalUIDriver.takeScreenshotAsBytes();
 	}
 	
 	public static void waitForPageToBeLoad(int timeInSeconds) {
-		globalDriver.waitForPageLoad(timeInSeconds);
+		globalUIDriver.waitForPageLoad(timeInSeconds);
 	}
 	
 	public static boolean isElementDisplayedOrEnabledOrSelected(String locatorValue,String state) {
-		return globalDriver.isElementDisplayedOrEnabledOrSelected(locatorValue,state);
+		return globalUIDriver.isElementDisplayedOrEnabledOrSelected(locatorValue,state);
 	}
 	public static void scrollToElement(String locatorValue) {
-		globalDriver.scrollToElement(locatorValue);
-	}
-	
-	public static String getAnyProperty(String propFileName,String configPropName) {
-		String value = null;
-		try {
-			Properties property = new Properties();
-			String filepath=System.getProperty("user.dir")+"\\src\\main\\java\\resources\\"+propFileName+".properties";
-			FileInputStream fis = new FileInputStream(new File(filepath));
-			property.load(fis);
-			value = property.getProperty(configPropName);
-			fis.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return value;
+		globalUIDriver.scrollToElement(locatorValue);
 	}
 	
 	public static String replacePath(String locatorIdentifier, String values) {
-		String xpath = BaseClass.getAnyProperty("locators", locatorIdentifier);
+		String xpath = PropertyManager.getAnyProperty("locators", locatorIdentifier);
 		String newPath=xpath;
 		if (values.contains("~")) {
 			String[] parameters = values.split("~");
@@ -84,23 +62,23 @@ public class BaseClass {
 	}
 	
 	public static void waitUntill(String locatorValue,String conditionName) {
-		globalDriver.waitUntill(locatorValue,conditionName);
+		globalUIDriver.waitUntill(locatorValue,conditionName);
 	}
 	
 	public static String getElementAttribute(String locatorValue,String attributeName) {
-		return globalDriver.getAttributeValue(locatorValue,attributeName);
+		return globalUIDriver.getAttributeValue(locatorValue,attributeName);
 	}
 	
 	public static void waitForElement(int timeInSeconds) {
-		globalDriver.waitForElement(timeInSeconds);
+		globalUIDriver.waitForElement(timeInSeconds);
 	}
 	
 	public static void jsClick(String locatorValue) {
-		globalDriver.jsClick(locatorValue);
+		globalUIDriver.jsClick(locatorValue);
 	}
 	
 	public static String getElementText(String locatorValue) {
-		return globalDriver.getText(locatorValue);
+		return globalUIDriver.getText(locatorValue);
 	}
 	
 }
